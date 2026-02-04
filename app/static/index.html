@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Chat Service UI</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar">
+        <h2>Threads</h2>
+        <div id="thread-list"></div>
+        <h3>Create Thread</h3>
+        <form id="create-thread-form">
+          <input id="thread-title" placeholder="Title" required />
+          <input id="thread-system" placeholder="System prompt (optional)" />
+          <button type="submit">Create</button>
+        </form>
+      </aside>
+
+      <main id="main">
+        <header>
+          <h2 id="thread-title-display">Select a thread</h2>
+          <div class="controls">
+            <select id="model-select"></select>
+            <button id="summaries-btn">Show Summaries</button>
+            <button id="edit-prompt-btn">Edit Prompt</button>
+            <button id="delete-thread-btn">Delete Thread</button>
+          </div>
+        </header>
+
+        <section id="messages"></section>
+
+        <form id="message-form">
+          <input
+            id="message-input"
+            placeholder="Type a message"
+            autocomplete="off"
+          />
+          <button type="submit">Send</button>
+        </form>
+
+        <section id="summaries" class="hidden">
+          <h3>Summaries</h3>
+          <div id="summary-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

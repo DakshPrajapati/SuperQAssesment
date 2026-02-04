@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: chat-service-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chatdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - chat-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat-service-app
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/chatdb
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      SUMMARIZATION_MODEL: ${SUMMARIZATION_MODEL:-upstage/solar-pro-3:free}
+      DEFAULT_LLM_1: ${DEFAULT_LLM_1:-mistralai/mistral-7b-instruct}
+      DEFAULT_LLM_2: ${DEFAULT_LLM_2:-openai/gpt-4o-mini}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    networks:
+      - chat-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  db-data:
+
+networks:
+  chat-network:
+    driver: bridge
