@@ -18,7 +18,8 @@ All summaries follow this JSON structure:
   "entities": {
     "entity_name": "entity_role_or_description",
     "person_name": "their_role"
-  }
+  },
+  "unlabled": []
 }
 ```
 
@@ -30,6 +31,7 @@ All summaries follow this JSON structure:
 - **constraints**: Limitations, restrictions, and requirements mentioned
 - **open_questions**: Questions that remain unanswered or need follow-up
 - **entities**: Important entities (people, companies, projects) with their roles/descriptions
+- **unlabled**: Anything else that might be relevent but not suited for above fields
 
 ## Automatic Summarization Trigger
 
@@ -41,7 +43,7 @@ To change the threshold, modify `ThreadService.SUMMARIZATION_THRESHOLD`:
 
 ```python
 # In app/services/thread_service.py
-SUMMARIZATION_THRESHOLD = 4  # Summarize after 4 messages
+SUMMARIZATION_THRESHOLD = 8  # Summarize after 4 messages
 ```
 
 ## Summary Sizes
@@ -72,56 +74,6 @@ The system supports three summary sizes to accommodate different model capabilit
 
 **Best for**: Advanced models with large context windows
 **Includes**: All fields (complete summary)
-
-## Model Metadata Management
-
-Each LLM model can be configured with metadata specifying which summary size it should use.
-
-### Create/Update Model Metadata
-
-```bash
-POST /threads/models
-Content-Type: application/json
-
-{
-  "model_name": "google/gemini-pro",
-  "summary_type": "medium",
-  "max_tokens": 4096,
-  "description": "Google's Gemini Pro model"
-}
-```
-
-### Response
-
-```json
-{
-  "id": 1,
-  "model_name": "google/gemini-pro",
-  "summary_type": "medium",
-  "max_tokens": 4096,
-  "description": "Google's Gemini Pro model",
-  "created_at": "2026-02-03T10:30:00",
-  "updated_at": "2026-02-03T10:30:00"
-}
-```
-
-### List All Models
-
-```bash
-GET /threads/models
-```
-
-### Get Specific Model
-
-```bash
-GET /threads/models/google/gemini-pro
-```
-
-### Delete Model Metadata
-
-```bash
-DELETE /threads/models/google/gemini-pro
-```
 
 ## Using Summary Slicing in Code
 
@@ -207,22 +159,6 @@ CREATE TABLE summaries (
   embedding VECTOR(1536) NULL,  -- For semantic search
   created_at TIMESTAMP NOT NULL,
   message_count INTEGER DEFAULT 0
-);
-```
-
-### ModelMetadata Table
-
-The `model_metadata` table stores model configuration:
-
-```sql
-CREATE TABLE model_metadata (
-  id INTEGER PRIMARY KEY,
-  model_name VARCHAR(255) NOT NULL UNIQUE,
-  summary_type VARCHAR(50) NOT NULL DEFAULT 'medium',
-  max_tokens INTEGER DEFAULT 4096,
-  description TEXT,
-  created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL
 );
 ```
 
@@ -361,12 +297,3 @@ class CustomSlicingEngine(SummarySlicingEngine):
 - JSON storage is efficient and queryable
 - Vector embeddings optional but enable semantic search
 - Merging logic deduplicates to prevent infinite growth
-
-## Future Enhancements
-
-- [ ] Automatic summary archival for old conversations
-- [ ] Custom summary categories per domain
-- [ ] Summary importance scoring
-- [ ] Multi-language summarization
-- [ ] Real-time summary streaming
-- [ ] Summary diff/change tracking
