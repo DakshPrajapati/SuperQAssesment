@@ -35,7 +35,7 @@
                                  │
                     ┌────────────┴─────────────┐
                     │                          │
-            Message Count < 4?          Message Count >= 4?
+            Message Count < limit?          Message Count >= limit?
                     │ Yes                      │ No
                     │                          ▼
                     │                 ┌────────────────────┐
@@ -84,6 +84,7 @@
                     │                 │   "constraints": [...], │
                     │                 │   "open_questions": [...],
                     │                 │   "entities": {...}     │
+                    │                 │   "unlabled": {...}     │
                     │                 │ }                       │
                     │                 └────────┬────────────────┘
                     │                          │
@@ -168,7 +169,7 @@
 │  │ constraints                              │             │
 │  │ open_questions                           │             │
 │  │ entities                                 │             │
-│  │ other                                    │             │
+│  │ unlabled                                 │             │
 │  └──────────────────────────────────────────┘             │
 │                    │                                      │
 │                    ▼                                      │
@@ -335,47 +336,5 @@ Thread has 4+ messages
 ```
 
 ---
-
-## Configuration Flow
-
-```
-Admin/Developer
-        │
-        ▼
-┌──────────────────────────────────────┐
-│ POST /threads/models                 │
-│ {                                    │
-│   "model_name": "google/gemini-pro", │
-│   "summary_type": "large",           │
-│   "max_tokens": 4096                 │
-│ }                                    │
-└──────────┬───────────────────────────┘
-           │
-           ▼
-┌──────────────────────────────────────┐
-│ Save to model_metadata table         │
-└──────────┬───────────────────────────┘
-           │
-           ▼
-┌──────────────────────────────────────┐
-│ Later: When using this model for LLM │
-│                                      │
-│ SummarySlicingEngine.get_summary_for_model(
-│   db, summary, "google/gemini-pro"
-│ )                                    │
-└──────────┬───────────────────────────┘
-           │
-           ▼
-┌──────────────────────────────────────┐
-│ Retrieve model_metadata              │
-│ Get: summary_type = "large"          │
-└──────────┬───────────────────────────┘
-           │
-           ▼
-┌──────────────────────────────────────┐
-│ Return full summary (all 6 fields)   │
-│ for use in LLM prompt                │
-└──────────────────────────────────────┘
-```
 
 ---
