@@ -78,7 +78,7 @@ async function sendMessage(e) {
   const content = input.value.trim();
   if (!content) return;
   const model = document.getElementById("model-select").value;
-  const payload = { sender: "web_user", content, model };
+  const payload = { sender: "You", content, model };
   const res = await fetch(`${API_BASE}/threads/${currentThreadId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
