@@ -9,7 +9,7 @@ This README is updated to reflect the current project layout and how to run the 
 - Thread-based persistent chats with per-thread system prompts and summaries
 - Pluggable LLM access through OpenRouter
 - Summarization and token-counting helpers
-- Simple multi-agent tooling under `app/agents/` (optional)
+- Simple multi-agent tooling under `app/agents/` (forFutureRef)
 
 **Project layout**
 
@@ -106,6 +106,7 @@ This will build the app image, start PostgreSQL (with the `pgvector` image), ini
 
 3. Access the application
 
+- Web app: http://localhost:8000/ui
 - FastAPI Docs: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 - API Base URL: http://localhost:8000
@@ -141,7 +142,7 @@ Notes on routes and usage
 
 ---
 
-Updated to match the repository layout (Feb 2026).
+### Thread Table
 
 - `title`: Thread display name
 - `system_prompt`: Static prompt guiding LLM behavior
