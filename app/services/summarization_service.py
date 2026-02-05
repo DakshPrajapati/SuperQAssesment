@@ -92,7 +92,9 @@ Respond ONLY with a valid JSON object matching this exact structure:
     "unlabeled": []
 }
 
-All fields must be lists or dicts (as specified). Return ONLY the JSON, no additional text."""
+All fields must be lists or dicts (as specified). Return ONLY the JSON, no additional text.
+IMPORTANT: Give priority to output format.
+"""
         
         # Build the prompt
         user_message = f"Please analyze and summarize this conversation:\n\n{conversation_text}"
@@ -111,13 +113,17 @@ All fields must be lists or dicts (as specified). Return ONLY the JSON, no addit
                 "content": user_message
             }
         ]
+
+        print(messages_for_llm)
         
         try:
             response = await self.llm_service.generate_response(
                 model=self.summarization_model,
                 system_prompt=system_prompt,
-                messages=messages_for_llm
+                messages=messages_for_llm,
+                max_message_length=50000
             )
+            print(response)
 
             # `generate_response` returns `(text, token_info)`. Accept either a tuple
             # or a plain string for compatibility, and parse the textual part.
@@ -125,7 +131,7 @@ All fields must be lists or dicts (as specified). Return ONLY the JSON, no addit
                 response_text = response[0]
             else:
                 response_text = response
-
+            
             # Parse the JSON response text
             summary_data = json.loads(response_text)
             

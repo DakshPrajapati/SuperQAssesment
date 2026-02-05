@@ -29,7 +29,7 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/chatdb
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
-      SUMMARIZATION_MODEL: ${SUMMARIZATION_MODEL:-upstage/solar-pro-3:free}
+      SUMMARIZATION_MODEL: ${SUMMARIZATION_MODEL:-openai/gpt-3.5-turbo}
       DEFAULT_LLM_1: ${DEFAULT_LLM_1:-mistralai/mistral-7b-instruct}
       DEFAULT_LLM_2: ${DEFAULT_LLM_2:-openai/gpt-4o-mini}
     ports:

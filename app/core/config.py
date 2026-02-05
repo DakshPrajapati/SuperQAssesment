@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     
     database_url: str
     openrouter_api_key: str
-    summarization_model: str = "upstage/solar-pro-3:free"
-    default_llm_1: str = "upstage/solar-pro-3:free"
+    summarization_model: str = "openai/gpt-3.5-turbo"
+    default_llm_1: str = "openai/gpt-3.5-turbo"
     default_llm_2: str = "mistralai/mistral-7b-instruct"
     
     class Config:

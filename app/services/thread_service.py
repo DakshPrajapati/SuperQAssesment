@@ -98,8 +98,8 @@ class ThreadService:
         
         # Define message limits per summary type
         message_limits = {
-            "small": 2,      # Minimal context for token-constrained models
-            "medium": 5,     # Balanced context for most models
+            "small": 5,      # Minimal context for token-constrained models
+            "medium": 8,     # Balanced context for most models
             "large": 10      # Full context for capable models
         }
         max_messages = message_limits.get(summary_type, 5)
@@ -134,7 +134,7 @@ class ThreadService:
         
         # Include last summary as context if available
         if last_summary:
-            from app.services.summary_utils import summary_data_to_text, SummarySlicingEngine
+            from app.utils.summary_utils import summary_data_to_text, SummarySlicingEngine
             try:
                 sliced = SummarySlicingEngine.get_summary_for_model(last_summary, model)
             except Exception:
@@ -207,7 +207,7 @@ class ThreadService:
             messages = thread_crud.get_messages_for_thread(
                 db=db,
                 thread_id=thread_id,
-                exclude_before_summary=True
+                exclude_before_summary=True,
             )
             
             if not messages:

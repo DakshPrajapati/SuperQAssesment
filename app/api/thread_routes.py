@@ -58,7 +58,7 @@ async def list_available_models():
             "preferred_summary_size": "large",
             "description": "OpenAI's most capable model with excellent reasoning"
         },
-        "upstage/solar-pro-3:free": { ... }
+        "openai/gpt-3.5-turbo": { ... }
     }
     ```
     """
@@ -270,7 +270,7 @@ async def send_message(
     - 404: Thread not found
     - 400: Invalid or non-existent model
     """
-    model = message.model or "upstage/solar-pro-3:free"
+    model = message.model or "openai/gpt-3.5-turbo"
     
     # Check if thread exists
     thread = thread_crud.get_thread(db, thread_id)

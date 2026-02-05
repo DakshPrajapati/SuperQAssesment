@@ -68,7 +68,7 @@ class LLMService:
                 continue
             
             # Check token length
-            msg_tokens = TokenCounter.count_tokens(content, "upstage/solar-pro-3:free")
+            msg_tokens = TokenCounter.count_tokens(content, "openai/gpt-3.5-turbo")
             if msg_tokens > max_message_length:
                 deleted_count += 1
                 deleted_content.append(content[:100] + "...")

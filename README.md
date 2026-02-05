@@ -91,7 +91,7 @@ Edit `.env` and set at minimum:
 ```env
 OPENROUTER_API_KEY=your_actual_api_key_here
 DATABASE_URL=postgresql://postgres:postgres@postgres:5432/chatdb
-SUMMARIZATION_MODEL=upstage/solar-pro-3:free
+SUMMARIZATION_MODEL=openai/gpt-3.5-turbo
 DEFAULT_LLM_1=google/gemini-pro
 DEFAULT_LLM_2=mistralai/mistral-7b-instruct
 ```
@@ -177,7 +177,7 @@ Key settings in `app/core/config.py`:
 ```python
 DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/chatdb"
 OPENROUTER_API_KEY = "your_api_key"
-SUMMARIZATION_MODEL = "upstage/solar-pro-3:free"
+SUMMARIZATION_MODEL = "openai/gpt-3.5-turbo"
 ```
 
 In `app/services/thread_service.py`:

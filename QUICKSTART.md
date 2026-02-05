@@ -41,7 +41,7 @@ Edit `.env`:
 ```
 DATABASE_URL=postgresql://postgres:your_password@localhost/chatdb
 OPENROUTER_API_KEY=your_key_here
-SUMMARIZATION_MODEL=upstage/solar-pro-3:free
+SUMMARIZATION_MODEL=openai/gpt-3.5-turbo
 DEFAULT_LLM_1=google/gemini-pro
 DEFAULT_LLM_2=mistralai/mistral-7b-instruct
 ```

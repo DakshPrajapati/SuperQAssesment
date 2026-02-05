@@ -22,7 +22,7 @@ class ModelName(str, Enum):
     # OpenAI models
     GPT_4 = "openai/gpt-4"
     GPT_4_TURBO = "openai/gpt-4-turbo-preview"
-    GPT_35_TURBO = "upstage/solar-pro-3:free"
+    GPT_35_TURBO = "openai/gpt-3.5-turbo"
     
     # Mistral models
     MISTRAL_7B = "mistralai/mistral-7b-instruct"
@@ -57,18 +57,18 @@ class ModelConfig:
 
 # Model configurations registry
 MODEL_CONFIGS = {
-    # ModelName.GPT_4: ModelConfig(
-    #     name=ModelName.GPT_4,
-    #     provider=ModelProvider.OPENAI,
-    #     max_tokens=8192,
-    #     temperature=0.7,
-    #     supports_function_calling=True,
-    #     context_window=8192,
-    #     cost_per_1k_input=0.03,
-    #     cost_per_1k_output=0.06,
-    #     preferred_summary_size=SummarySize.LARGE,
-    #     description="OpenAI's most capable model with excellent reasoning"
-    # ),
+    ModelName.GPT_4: ModelConfig(
+        name=ModelName.GPT_4,
+        provider=ModelProvider.OPENAI,
+        max_tokens=8192,
+        temperature=0.7,
+        supports_function_calling=True,
+        context_window=8192,
+        cost_per_1k_input=0.03,
+        cost_per_1k_output=0.06,
+        preferred_summary_size=SummarySize.LARGE,
+        description="OpenAI's most capable model with excellent reasoning"
+    ),
     ModelName.SOLAR_PRO: ModelConfig(
         name=ModelName.SOLAR_PRO,
         provider=ModelProvider.UPSTAGE,
@@ -81,30 +81,30 @@ MODEL_CONFIGS = {
         preferred_summary_size=SummarySize.LARGE,
         description="Upstage"
     ),
-    # ModelName.GPT_4_TURBO: ModelConfig(
-    #     name=ModelName.GPT_4_TURBO,
-    #     provider=ModelProvider.OPENAI,
-    #     max_tokens=4096,
-    #     temperature=0.7,
-    #     supports_function_calling=True,
-    #     context_window=128000,
-    #     cost_per_1k_input=0.01,
-    #     cost_per_1k_output=0.03,
-    #     preferred_summary_size=SummarySize.LARGE,
-    #     description="OpenAI's fast GPT-4 variant with expanded context"
-    # ),
-    # ModelName.GPT_35_TURBO: ModelConfig(
-    #     name=ModelName.GPT_35_TURBO,
-    #     provider=ModelProvider.OPENAI,
-    #     max_tokens=4096,
-    #     temperature=0.7,
-    #     supports_function_calling=True,
-    #     context_window=4096,
-    #     cost_per_1k_input=0.0005,
-    #     cost_per_1k_output=0.0015,
-    #     preferred_summary_size=SummarySize.MEDIUM,
-    #     description="OpenAI's fast and cost-effective model"
-    # ),
+    ModelName.GPT_4_TURBO: ModelConfig(
+        name=ModelName.GPT_4_TURBO,
+        provider=ModelProvider.OPENAI,
+        max_tokens=4096,
+        temperature=0.7,
+        supports_function_calling=True,
+        context_window=128000,
+        cost_per_1k_input=0.01,
+        cost_per_1k_output=0.03,
+        preferred_summary_size=SummarySize.LARGE,
+        description="OpenAI's fast GPT-4 variant with expanded context"
+    ),
+    ModelName.GPT_35_TURBO: ModelConfig(
+        name=ModelName.GPT_35_TURBO,
+        provider=ModelProvider.OPENAI,
+        max_tokens=4096,
+        temperature=0.7,
+        supports_function_calling=True,
+        context_window=4096,
+        cost_per_1k_input=0.0005,
+        cost_per_1k_output=0.0015,
+        preferred_summary_size=SummarySize.MEDIUM,
+        description="OpenAI's fast and cost-effective model"
+    ),
     ModelName.MISTRAL_7B: ModelConfig(
         name=ModelName.MISTRAL_7B,
         provider=ModelProvider.MISTRAL,
@@ -114,15 +114,15 @@ MODEL_CONFIGS = {
         preferred_summary_size=SummarySize.MEDIUM,
         description="Mistral's open-source 7B parameter model"
     ),
-    # ModelName.CLAUDE_HAIKU: ModelConfig(
-    #     name=ModelName.CLAUDE_HAIKU,
-    #     provider=ModelProvider.ANTHROPIC,
-    #     max_tokens=1024,
-    #     temperature=0.7,
-    #     context_window=200000,
-    #     preferred_summary_size=SummarySize.SMALL,
-    #     description="Anthropic's fast and compact Claude model"
-    # ),
+    ModelName.CLAUDE_HAIKU: ModelConfig(
+        name=ModelName.CLAUDE_HAIKU,
+        provider=ModelProvider.ANTHROPIC,
+        max_tokens=1024,
+        temperature=0.7,
+        context_window=200000,
+        preferred_summary_size=SummarySize.SMALL,
+        description="Anthropic's fast and compact Claude model"
+    ),
 }
 
 
