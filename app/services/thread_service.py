@@ -21,7 +21,7 @@ class ThreadService:
     and automatic conversation summarization.
     """
     
-    SUMMARIZATION_THRESHOLD = 4  # Summarize after every 4 messages
+    SUMMARIZATION_THRESHOLD = 8  # Summarize after every 4 messages
     
     def __init__(self):
         """Initialize the Thread Service."""
@@ -89,10 +89,7 @@ class ThreadService:
         # Get last summary for context
         last_summary = thread_crud.get_last_summary_for_thread(db, thread_id)
         # Protect against no previous summary (None)
-        if last_summary and getattr(last_summary, "summary_data", None):
-            print(last_summary.summary_data)
-        else:
-            print("!!!!!!!!")
+    
         # Get model metadata to determine message limits based on summary type
         summary_type = get_summary_size_for_model(model).value or "medium"
         

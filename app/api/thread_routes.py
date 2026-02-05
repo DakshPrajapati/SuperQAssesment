@@ -355,5 +355,3 @@ async def get_thread_summaries(
     summaries = thread_crud.get_summaries_for_thread(db, thread_id)
     return summaries
 
-# ===================== Model Metadata Routes =====================
-

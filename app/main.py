@@ -6,8 +6,9 @@ Assembles the application with routes and startup/shutdown events.
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import model_routes, thread_routes
+from app.api import thread_routes
 from app.api import token_routes
+from app.api.forFutureRef import model_routes
 from app.db.database import init_db
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -45,9 +46,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/", tags=["info"], summary="API Information")
+async def root():
+    return {
+        "message": "Welcome to the API",
+        "endpoints": {
+            "documentation": "/docs",
+            "web_ui": "/ui"
+        },
+        "description": {
+            "documentation": "Interactive Swagger API documentation",
+            "web_ui": "Web application interface"
+        }
+    }
+
 # Include API routes
 app.include_router(thread_routes.router)
-app.include_router(model_routes.router)
 app.include_router(token_routes.router)
 
 # Serve simple single-page web UI
